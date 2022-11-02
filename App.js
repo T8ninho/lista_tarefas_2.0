@@ -1,6 +1,9 @@
 import React from "react";
-import {View, Text} from 'react-native';
-import Todos from "./src/pages/Home";
+import HomeScreen from "./src/pages/HomeScreen";
+import NewTodo from "./src/pages/NewTodo";
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   MD3LightTheme as DefaultTheme,
   Provider as PaperProvider,
@@ -9,7 +12,7 @@ import {
 const theme = {
   ...DefaultTheme,
   colors: {
-    myOwnColor: '#BADA55',
+    BG: '#171d31',
     primary: "rgb(158, 42, 155)",
     secondary: "rgb(109, 88, 105)",
     tertiary: "rgb(130, 83, 69)",
@@ -17,10 +20,27 @@ const theme = {
   },
 };
 
+const Stack = createNativeStackNavigator();
+
 export default function App(){
     return (
       <PaperProvider theme={theme}>
-        <Todos />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: 'Lista de Tarefas' }}
+          />
+          <Stack.Screen
+            name="NewTodo"
+            component={NewTodo}
+            options={{ title: 'Nova Tarefa' }}
+          />
+            
+          </Stack.Navigator>
+        </NavigationContainer>
       </PaperProvider>
     )
 }

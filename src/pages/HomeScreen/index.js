@@ -1,36 +1,22 @@
 import React, { useState, useEffect } from "react";
 import firestore from '@react-native-firebase/firestore'
-import { useTheme } from 'react-native-paper';
-
+import { useTheme, Text, Appbar } from 'react-native-paper';
+import { StyleSheet, ImageBackground } from "react-native";
+import ImageBG from '../../Images/background.jpg';
 import Todo from './Todo';
+import { FlatList, View } from "react-native";
+import FabButton from "../../components/FabButton";
 
-import { FlatList, ScrollView, Text } from "react-native";
-import { Appbar, TextInput, Button } from "react-native-paper";
 
-
-export default function Todos() {
+export default function HomeScreen({navigation}) {
 
     const theme = useTheme();
 
-    const [todo, setTodo] = useState('');
     const [loading, setLoading] = useState(true);
     const [Completos, setCompletos] = useState([]);
     const [Incompletos, setIncompletos] = useState([]);
-    const [nomes, setNomes] = useState('');
 
     const ref = firestore().collection('todos');
-
-    async function addTodo(){
-      if(todo === '') return;
-      if(nomes === '') return;
-      await ref.add({
-            title: todo,
-            complete: false,
-            name: nomes
-        });
-        setTodo('');
-        setNomes('')
-    }
 
     async function Apagar() {
       await firestore()
@@ -57,10 +43,14 @@ export default function Todos() {
           setIncompletos(listInc);
 
           if (loading) {
-              return null;
-          }
-      })
-  }, [])
+            return(
+              <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+                <Text>Carregando...</Text>
+              </View>
+              );
+            }
+        })
+    }, [])
 
 
 
@@ -82,41 +72,80 @@ export default function Todos() {
         setCompletos(listComp);
 
         if (loading) {
-            return null;
-        }cv
+            return(
+              <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+                <Text>Carregando...</Text>
+              </View>
+              );
+        }
     })
 }, [])
 
   return(
-    <>
+    <View style={{flex: 1}}>
+      <ImageBackground source={ImageBG} resizeMode="cover" style={styles.image} blurRadius={6}>
       <Appbar style={{backgroundColor: theme.colors.primary}}>
         <Appbar.Content style={{alignItems: 'center'}} title={"Lista de Tarefas 2.0"} />
       </Appbar>
       {/* Tarefas Incompletas */}
+      <Text 
+        variant="titleLarge" 
+        style={{
+          borderBottomColor: '#000',
+          borderBottomWidth: 1
+        }}> Incompletas </Text>
       <FlatList
         style={{
             flex: 1,
-            backgroundColor: theme.colors.secondary,
             padding: 20,
         }}
         data={Incompletos}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Todo {...item} />}
       />
+
+      
+
       {/* Tarefas Completas */}
-      <FlatList
+      <Text 
+        variant="titleLarge" 
         style={{
-            flex: 1,
-            backgroundColor: theme.colors.tertiary,
-            padding: 20,
-        }}
-        data={Completos}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Todo {...item}  onPress={Apagar}/>}
+          borderBottomColor: '#000',
+          borderBottomWidth: 1
+        }}> Completas </Text>
+        <FlatList
+          style={{
+              flex: 1,
+              padding: 20,
+          }}
+          data={Completos}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Todo {...item} />}
+        />      
+      <FabButton 
+        Concluidas={() => {}}
+        NovoItem={() => navigation.navigate('NewTodo')} 
+        style={{ bottom: 80, right: 60 }}
       />
-      <TextInput mode='outlined' label={'Nova Tarefa'} value={todo} onChangeText={setTodo} />
-      <TextInput mode="contained" label={'Novo Nome'} value={nomes} onChangeText={setNomes} />
-      <Button mode="contained" onPress={() => addTodo()}>Adicinar Tarefa</Button>
-    </>
+      </ImageBackground>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  modalHeader: {
+    marginLeft: 10,
+    marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  modalTitle: {
+    marginLeft: 15,
+    fontSize: 23,
+    color: '#fff',
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center"
+  },
+})

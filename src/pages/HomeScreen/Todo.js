@@ -4,12 +4,20 @@ import { List, Text, Button } from 'react-native-paper';
 
 function Todo({id, title, complete, name}) {
     async function toggleComplete() {
-        await firestore()
+        if(complete === true) {
+            await firestore()
+            .collection('todos')
+            .doc(id)
+            .delete();
+        } else {
+            await firestore()
             .collection('todos')
             .doc(id)
             .update({
-                complete: !complete,
-            });
+            complete: !complete,
+        });
+        }
+        
     }
 
     
@@ -24,7 +32,7 @@ function Todo({id, title, complete, name}) {
                 }}
                 title={title}
                 onPress={() => toggleComplete()}
-                left={props => (<List.Icon {...props} icon={complete ? 'check' : 'cancel'} />
+                left={props => (<List.Icon {...props} icon={complete ? 'check' : 'close'} />
                 )}
                 right={props => (<Text>{name}</Text>)}
             />

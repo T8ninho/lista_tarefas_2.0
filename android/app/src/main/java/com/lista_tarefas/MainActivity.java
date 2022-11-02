@@ -1,5 +1,9 @@
 package com.lista_tarefas;
 
+/* react navigation */
+import android.os.Bundle;
+/* react navigation */
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -14,7 +18,12 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "lista_tarefas";
   }
-
+  /* react navigation */
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
+  }
+  /* react navigation */
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
    * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
