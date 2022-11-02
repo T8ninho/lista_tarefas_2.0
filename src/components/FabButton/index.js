@@ -43,6 +43,18 @@ export default class FabButton extends Component {
             }
         ]
     }
+
+    const temasStyle = {
+        transform: [
+            { scale: this.animation },
+            {
+                translateY: this.animation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, -180]
+                })
+            }
+        ]
+    }
     
     const rotation = {
         transform: [
@@ -56,6 +68,12 @@ export default class FabButton extends Component {
     }
     return (
         <View style={[styles.container, this.props.style]}>
+            <TouchableWithoutFeedback onPress={this.props.Temas}>
+                <Animated.View style={[styles.button, styles.submenu, temasStyle]}>
+                    <IconC name="isv" size={24} color="#FFF" />
+                </Animated.View>
+            </TouchableWithoutFeedback>
+
             <TouchableWithoutFeedback onPress={this.props.Concluidas}>
                 <Animated.View style={[styles.button, styles.submenu, coracaoStyle]}>
                     <IconC name="heart" size={24} color="#FFF" />

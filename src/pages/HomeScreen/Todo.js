@@ -32,7 +32,7 @@ function Todo({id, title, complete, name}) {
                 }}
                 title={title}
                 onPress={() => toggleComplete()}
-                left={props => (<List.Icon {...props} icon={complete ? 'check' : 'close'} />
+                left={props => (<List.Icon {...props} icon={complete ? 'close' : 'check'} />
                 )}
                 right={props => (<Text>{name}</Text>)}
             />

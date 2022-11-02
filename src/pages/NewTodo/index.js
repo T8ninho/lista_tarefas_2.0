@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import firestore from '@react-native-firebase/firestore'
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import ref from '../../components/Firebase';
 
 import { useTheme } from 'react-native-paper';
 
 export default function NewTodo({navigation}) {
 
-    const ref = firestore().collection('todos');
 
     const theme = useTheme();
     const [todo, setTodo] = useState('');
