@@ -5,48 +5,42 @@ import ref from '../../components/Firebase';
 
 import { useTheme } from 'react-native-paper';
 
+
+
 export default function NewTodo({navigation}) {
 
 
     const theme = useTheme();
     const [todo, setTodo] = useState('');
-    const [nomes, setNomes] = useState('');
+    const [Quantidade, setQuantidade] = useState('');
 
     async function addTodo(){
         if(todo === '') return;
-        if(nomes === '') return;
+        if(Quantidade === '') return;
         await ref.add({
               title: todo,
               complete: false,
-              name: nomes
+              Quantidade: Quantidade
           });
           setTodo('');
-          setNomes('');
+          setQuantidade('');
           navigation.goBack()
       }
     
     return(
-        <View style={{backgroundColor: theme.colors.BG, flex: 2}}>
-            <TextInput mode='outlined' label={'Nova Tarefa'} value={todo} onChangeText={setTodo} />
-            <TextInput mode="contained" label={'Novo Nome'} value={nomes} onChangeText={setNomes} />
-            <Button mode="contained" onPress={() => addTodo()}>Adicinar Tarefa</Button>
+        <View style={[styles.container,{backgroundColor: theme.colors.BG}]}>
+            <TextInput mode='contained' label={'Nova Tarefa'} value={todo} onChangeText={setTodo} />
+            <TextInput mode="contained" keyboardType='numeric' label={'Quantidade'} value={Quantidade} onChangeText={setQuantidade} />
+            <Button  mode="contained" onPress={() => addTodo()}>Adicinar Tarefa</Button>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    modalHeader: {
-        marginLeft: 10,
-        marginTop: 20,
-        flexDirection: 'row',
-        alignItems: 'center'
-      },
-      modalTitle: {
-        marginLeft: 15,
-        fontSize: 23,
-        color: '#fff',
-      },
-      image: {
+    container: {
+        flex: 2
+    },
+    image: {
         flex: 1,
         justifyContent: "center"
       },

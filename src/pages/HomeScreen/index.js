@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, cloneElement } from "react";
 import { useTheme, Text, Appbar } from 'react-native-paper';
 import { StyleSheet, ImageBackground } from "react-native";
 
@@ -11,22 +11,22 @@ import ref from "../../components/Firebase";
 export default function HomeScreen({route, navigation}) {
 
     const { ImageBG } = route.params;
-    const theme = useTheme();
     const [loading, setLoading] = useState(true);
     const [Incompletos, setIncompletos] = useState([]);
+
 
     //Tarefas Incompletas
     useEffect(() => {
       return ref.onSnapshot((querySnapshot) => {
           const listInc = [];
           querySnapshot.forEach(doc => {
-              const { title, complete, name } = doc.data();
+              const { title, complete, Quantidade } = doc.data();
               if(complete === true) return;
               listInc.push({
                   id: doc.id,
                   title,
                   complete,
-                  name,
+                  Quantidade,
               });
           });
 
@@ -50,7 +50,8 @@ export default function HomeScreen({route, navigation}) {
         variant="titleLarge" 
         style={{
           borderBottomColor: '#000',
-          borderBottomWidth: 1
+          borderBottomWidth: 1,
+          textAlign: 'center',
         }}> Incompletas </Text>
       <FlatList
         style={{
