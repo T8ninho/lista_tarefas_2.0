@@ -16,7 +16,7 @@ export default function NewTodo({navigation}) {
 
     async function addTodo(){
         if(todo === '') return;
-        if(Quantidade === '') return;
+        if(Quantidade == ' ') return;
         await ref.add({
               title: todo,
               complete: false,

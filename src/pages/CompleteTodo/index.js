@@ -5,7 +5,7 @@ import ref from '../../components/Firebase';
 
 import Todo from '../HomeScreen/Todo';
 
-export default function CompleteTodo({loading, route}) {
+export default function CompleteTodo({loading, route, Blur}) {
 
     const { ImageBG } = route.params;
     const [Completos, setCompletos] = useState([]);
@@ -14,13 +14,13 @@ export default function CompleteTodo({loading, route}) {
         return ref.onSnapshot((querySnapshot) => {
             const listComp = [];
             querySnapshot.forEach(doc => {
-                const { title, complete, name } = doc.data();
+                const { title, complete, Quantidade } = doc.data();
                 if(complete === false) return;
                 listComp.push({
                     id: doc.id,
                     title,
                     complete,
-                    name,
+                    Quantidade,
                 });
             });
     
@@ -38,7 +38,7 @@ export default function CompleteTodo({loading, route}) {
 
     return(
         <View style={{flex: 1}}>
-            <ImageBackground source={ImageBG} resizeMode="cover" style={styles.image} blurRadius={6}>
+            <ImageBackground source={ImageBG} resizeMode="cover" style={styles.image} blurRadius={Blur}>
                 <Text 
                     variant="titleLarge" 
                     style={{

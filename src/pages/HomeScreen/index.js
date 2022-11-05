@@ -1,5 +1,5 @@
 import React, { useState, useEffect, cloneElement } from "react";
-import { useTheme, Text, Appbar } from 'react-native-paper';
+import { useTheme, Text, Appbar, TextInput, Button } from 'react-native-paper';
 import { StyleSheet, ImageBackground } from "react-native";
 
 import Todo from './Todo';
@@ -12,6 +12,7 @@ export default function HomeScreen({route, navigation}) {
 
     const { ImageBG } = route.params;
     const [loading, setLoading] = useState(true);
+    const [Blur, setBlur] = useState(6);
     const [Incompletos, setIncompletos] = useState([]);
 
 
@@ -44,7 +45,12 @@ export default function HomeScreen({route, navigation}) {
 
   return(
     <View style={{flex: 1}}>
-      <ImageBackground source={ImageBG} resizeMode="cover" style={styles.image} blurRadius={6}>
+      <ImageBackground source={ImageBG} resizeMode="cover" style={styles.image} blurRadius={Blur}>
+        <View style={{display: 'flex', flexDirection: 'row', justifyContent:'center'}}>
+          <Button  mode="contained" onPress={() => setBlur(6)}>ON</Button>
+          <Button  mode="contained" onPress={() => setBlur(0)}>OFF</Button>
+        </View>
+        
       {/* Tarefas Incompletas */}
       <Text 
         variant="titleLarge" 
@@ -60,7 +66,7 @@ export default function HomeScreen({route, navigation}) {
         }}
         data={Incompletos}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Todo {...item} />}
+        renderItem={({item}) => <Todo {...item}/>}
       />
  
       <FabButton 

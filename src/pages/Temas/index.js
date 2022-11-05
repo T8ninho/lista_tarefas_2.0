@@ -8,7 +8,8 @@ import Papel from '../../Images/Papel.jpg'
 import Vidro from '../../Images/Vidro.jpg'
 import Desenho from '../../Images/Desenho.jpg'
 
-export default function Temas({route, navigation}){
+export default function Temas({route, navigation, Blur}){
+    const [Tema, setTema] = useState(Tema1)
 
     const Tema1 = Flor;
     const Tema2 = Raposa;
@@ -16,14 +17,23 @@ export default function Temas({route, navigation}){
     const Tema4 = Vidro;
     const Tema5 = Desenho;
 
-    const { ImageBG } = route.params;
+    var {ImageBG} = route.params;
+
+    function ativar(){
+        
+        navigation.navigate('Home')
+        setBlur(6)
+    }
 
     return(
             <ImageBackground 
                 source={ImageBG} 
                 resizeMode="cover" 
-                blurRadius={6} 
+                blurRadius={Blur} 
                 style={styles.Container}>
+
+        <View style={{display: 'flex', flexDirection: 'row', justifyContent:'center'}}>
+        </View>
                 {/* <Text variant="titleLarge">Sou o Tema</Text>
                 
                 <Button
@@ -35,27 +45,50 @@ export default function Temas({route, navigation}){
                     <TouchableOpacity style={styles.Box} onPress={() => {
                     // Pass and merge params back to home screen
                     navigation.navigate({
-                        name: 'CompleteTodo',
+                        name:'Home',
+                        
+                        params: { ImageBG: Tema1 },
+                    })}}>
+                        <Image source={Tema1} style={styles.SubBox}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.Box} onPress={() => {
+                    // Pass and merge params back to home screen
+                    navigation.navigate({
                         name:'Home',
                         
                         params: { ImageBG: Tema2 },
                     })}}>
-                        <Image source={Tema1} style={styles.SubBox}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.Box} onPress={() => setTema(Tema2)}>
                         <Image source={Tema2} style={styles.SubBox}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.ContainerBox} onPress={() => setTema(Tema3)}>
-                    <TouchableOpacity style={styles.Box}>
+                    <TouchableOpacity style={styles.Box} onPress={() => {
+                    // Pass and merge params back to home screen
+                    navigation.navigate({
+                        name:'Home',
+                        
+                        params: { ImageBG: Tema3 },
+                    })}}>
                         <Image source={Tema3} style={styles.SubBox}/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.Box} onPress={() => setTema(Tema4)}>
+                    <TouchableOpacity style={styles.Box} onPress={() => {
+                    // Pass and merge params back to home screen
+                    navigation.navigate({
+                        name:'Home',
+                        
+                        params: { ImageBG: Tema4 },
+                    })}}>
                         <Image source={Tema4} style={styles.SubBox}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.ContainerBox}>
-                    <TouchableOpacity style={styles.Box} onPress={() => setTema(Tema5)}>
+                    <TouchableOpacity style={styles.Box} onPress={() => {
+                    // Pass and merge params back to home screen
+                    navigation.navigate({
+                        name:'Home',
+                        
+                        params: { ImageBG: Tema5 },
+                    })}}>
                         <Image source={Tema5} style={styles.SubBox}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.Box}>
