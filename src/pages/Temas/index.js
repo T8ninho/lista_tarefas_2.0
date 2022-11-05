@@ -8,7 +8,7 @@ import Papel from '../../Images/Papel.jpg'
 import Vidro from '../../Images/Vidro.jpg'
 import Desenho from '../../Images/Desenho.jpg'
 
-export default function Temas({route, navigation, Blur}){
+export default function Temas({route, navigation}){
     const [Tema, setTema] = useState(Tema1)
 
     const Tema1 = Flor;
@@ -17,13 +17,7 @@ export default function Temas({route, navigation, Blur}){
     const Tema4 = Vidro;
     const Tema5 = Desenho;
 
-    var {ImageBG} = route.params;
-
-    function ativar(){
-        
-        navigation.navigate('Home')
-        setBlur(6)
-    }
+    const { ImageBG, Blur } = route.params;
 
     return(
             <ImageBackground 
@@ -31,9 +25,6 @@ export default function Temas({route, navigation, Blur}){
                 resizeMode="cover" 
                 blurRadius={Blur} 
                 style={styles.Container}>
-
-        <View style={{display: 'flex', flexDirection: 'row', justifyContent:'center'}}>
-        </View>
                 {/* <Text variant="titleLarge">Sou o Tema</Text>
                 
                 <Button

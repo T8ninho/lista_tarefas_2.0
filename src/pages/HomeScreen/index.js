@@ -12,7 +12,7 @@ export default function HomeScreen({route, navigation}) {
 
     const { ImageBG } = route.params;
     const [loading, setLoading] = useState(true);
-    const [Blur, setBlur] = useState(6);
+    const [Blur, setBlur] = useState(0);
     const [Incompletos, setIncompletos] = useState([]);
 
 

@@ -20,6 +20,7 @@ import {
 const Stack = createNativeStackNavigator();
 
 export default function App(){
+  
 
   const Tema1 = Flor;
   const Tema2 = Raposa;
@@ -58,7 +59,7 @@ export default function App(){
             headerTitleStyle: {
               fontWeight: 'bold',
             }, }}
-            initialParams={{ ImageBG: theme.colors.BGImage }}
+            initialParams={{ ImageBG: Tema}}
           />
           <Stack.Screen
             name="NewTodo"
